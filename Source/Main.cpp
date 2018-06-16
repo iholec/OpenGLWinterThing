@@ -12,7 +12,10 @@
 
 
 #include <stdio.h>
+#include <iostream>
+#include <list>
 #include <math.h>
+#include <time.h> 
 
 #include "tga.h"
 #include "Object.h"
@@ -29,6 +32,7 @@
 #define cosf(x) ((float)cos((x)))
 #define atan2f(x, y) ((float)atan2((x), (y)))
 #endif 
+using namespace std;
 
 int window;
 float advanceX = 0.0f;
@@ -42,14 +46,17 @@ GLuint textureCheese;
 GLuint textureSteak;
 GLuint textureCatBiscuit;
 
+GLuint textures[100];
+int numberOfTextures = 7;
+
 int moving = 0;     /* flag that is true while mouse moves */
 int begin_x = 0;        /* x value of mouse movement */
 int begin_y = 0;      /* y value of mouse movement */
 GLfloat angle_y = 0;  /* angle of spin around y axis of scene, in degrees */
 GLfloat angle_x = 0;  /* angle of spin around x axis  of scene, in degrees */
 
-
-					  //int window;
+Object planets[50];
+int planetPos = 0;
 
 float hour = 0.0;
 float day = 0.0;
@@ -128,6 +135,18 @@ void keyPressed(unsigned char key, int x, int y)
 		advanceY -= 0.1f;
 		glutPostRedisplay();
 		break;
+	case 'r':
+		inc += 0.01f;
+		glutPostRedisplay();
+		break;
+	case 'f':
+		inc -= 0.01f;
+		glutPostRedisplay();
+		break;
+	/*case 'z':
+		initUniverse();
+		glutPostRedisplay();
+		break;*/
 	default:
 		break;
 	}
@@ -185,6 +204,23 @@ void drawSphere(GLuint *tex, float size) {
 	gluDeleteQuadric(qobj);
 	glDisable(GL_TEXTURE_2D);
 }
+void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
+
+	GLUquadric *qobj = gluNewQuadric();
+
+	gluQuadricTexture(qobj, GL_TRUE);
+	gluQuadricNormals(qobj, GLU_SMOOTH);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	glMaterialfv(GL_FRONT, GL_EMISSION, glowColor);
+	gluSphere(qobj, size, 20, 20);
+	GLfloat noGlow[] = { 0,0,0 };
+	glMaterialfv(GL_FRONT, GL_EMISSION, noGlow);
+
+	gluDeleteQuadric(qobj);
+	glDisable(GL_TEXTURE_2D);
+}
 
 void display()
 {
@@ -212,8 +248,25 @@ void display()
 	// ecliptic
 	glRotatef(15.0, 1.0, 0.0, 0.0);
 
+	for (int i = 0; i < 50; i++)
+	{
+		Object p = planets[i];
+		Object center = planets[p.rotateAround];
+		glPushMatrix();
+		glPushMatrix();
+		glTranslatef(center.posX, center.posY, center.posZ);
+		glRotatef(360.0*day / 365.0, p.rotaX1, p.rotaY1, p.rotaZ1);
+		
+		glTranslatef(p.posX, p.posY, p.posZ);
+		glRotatef(360.0*hour / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
+		drawSphere(&textures[p.texture], p.size);
+		
+		glPopMatrix();
+	}
+
 	// sun
-	drawSphere(&textureCatBiscuit, 1);
+	/*GLfloat sunColor[] = { 0.2,0.2,0 };
+	drawGlowingSphere(&textureCatBiscuit, 1, sunColor);
 
 	// earth
 	// position around the sun
@@ -224,7 +277,8 @@ void display()
 	// rotate the earth on its axis
 	glRotatef(360.0*hour / 24.0, 0.0, 1.0, 0.0);
 
-	drawSphere(&textureSteak, 0.4f);
+	GLfloat steakColor[] = { 1,0,0 };
+	drawGlowingSphere(&textureSteak, 0.4f,steakColor);
 	glPopMatrix();
 
 	// moon
@@ -234,10 +288,31 @@ void display()
 
 	glTranslatef(0.2f, 0, 0);
 	glRotatef(360.0 * 4 * day / 365.0, 1.0, 0.0, 0.0);
-	drawSphere(&textureSphagettiPasta, 0.1f);
+	drawSphere(&textureSphagettiPasta, 0.1f);*/
 
 	glutSwapBuffers();
 
+}
+
+void initUniverse() {
+
+	for (int i = 0; i < 50; i++)
+	{
+		Object planet;
+		planet.texture = rand() % (numberOfTextures);
+		planet.rotateAround = 0;
+		if (i == 0) {
+			planet.rotateAround = 0;
+			planet.posX = 0;
+			planet.posY = 0;
+			planet.posZ = 0;
+		}
+		cout << planet.texture;
+
+		planets[planetPos] = planet;
+		planetPos++;
+
+	}
 }
 
 int initTexture(char* picture, GLuint* tex) {
@@ -282,16 +357,17 @@ int initTexture(char* picture, GLuint* tex) {
 
 void init(int width, int height)
 {
+	/*/
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat mat_shininess[] = { 5.0 };
 	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);*/
 
 	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
+	//glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST);
 
 
@@ -304,13 +380,21 @@ void init(int width, int height)
 
 	resize(width, height);
 
-	initTexture("Textures/steak512.tga", &textureSteak);
+	/*initTexture("Textures/steak512.tga", &textureSteak);
 	initTexture("Textures/cheese.tga", &textureCheese);
 	initTexture("Textures/pasta.tga", &texturePasta);
 	initTexture("Textures/fettuccinePasta.tga", &textureFettuccinePasta);
 	initTexture("Textures/sphagettiPasta.tga", &textureSphagettiPasta);
 	initTexture("Textures/bowtiePasta.tga", &textureBowtiePasta);
-	initTexture("Textures/catBiscuit.tga", &textureCatBiscuit);
+	initTexture("Textures/catBiscuit.tga", &textureCatBiscuit);*/
+
+	initTexture("Textures/steak512.tga", &textures[0]);
+	initTexture("Textures/cheese.tga", &textures[1]);
+	initTexture("Textures/pasta.tga", &textures[2]);
+	initTexture("Textures/fettuccinePasta.tga", &textures[3]);
+	initTexture("Textures/sphagettiPasta.tga", &textures[4]);
+	initTexture("Textures/bowtiePasta.tga", &textures[5]);
+	initTexture("Textures/catBiscuit.tga", &textures[6]);
 
 }
 
@@ -376,6 +460,8 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(&keyPressed);
 	glutSpecialFunc(&specialKeyPressed);
 	init(640, 480);
+	srand(time(NULL));
+	initUniverse();
 	glutTimerFunc(15, timer, 1);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mouseMotion);
