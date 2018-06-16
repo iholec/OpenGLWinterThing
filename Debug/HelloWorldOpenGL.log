@@ -1,0 +1,11 @@
+﻿  Main.c
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(193): warning C4244: "Funktion": Konvertierung von "double" in "float", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(203): warning C4244: "+=": Konvertierung von "double" in "float", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(209): warning C4244: "Funktion": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(219): warning C4244: "Funktion": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(224): warning C4244: "Funktion": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(230): warning C4244: "Funktion": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(235): warning C4244: "Funktion": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\ecg\uebungen\foodgalaxy\source\main.c(373): warning C4113: "void (__cdecl *)()" weicht in der Parameterliste von "void (__cdecl *)(void)" ab
+  HelloWorldOpenGL.vcxproj -> D:\Studium\4.Semester\ECG\Uebungen\FoodGalaxy\Debug\HelloWorldOpenGL.exe
+  HelloWorldOpenGL.vcxproj -> D:\Studium\4.Semester\ECG\Uebungen\FoodGalaxy\Debug\HelloWorldOpenGL.pdb (Partial PDB)
