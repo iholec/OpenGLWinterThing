@@ -21,15 +21,15 @@
     <ClCompile Include="Source\tga.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="Source\Object.cpp">
+      <Filter>Ressourcendateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\tga.h">
-      <Filter>Ressourcendateien</Filter>
+      <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="Source\Object.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
