@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Main.c" />
-    <ClCompile Include="Source\tga.c" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Source\tga.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

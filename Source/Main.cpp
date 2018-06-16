@@ -1,0 +1,384 @@
+#include <stdlib.h> // for exit
+
+#ifdef __APPLE__
+#include <GLUT/glut.h> 
+#include <OpenGL/gl.h>  
+#include <OpenGL/glu.h>  
+#else
+#include <GL/glut.h> 
+#include <GL/gl.h>  
+#include <GL/glu.h>  
+#endif
+
+
+#include <stdio.h>
+#include "tga.h"
+
+#include <math.h>
+
+/* some math.h files don't define pi... */
+#ifndef M_PI
+#define M_PI 3.141592653
+#endif
+
+#define RAD(x) (((x)*M_PI)/180.)
+
+#ifdef __STRICT_ANSI__
+#define sinf(x) ((float)sin((x)))
+#define cosf(x) ((float)cos((x)))
+#define atan2f(x, y) ((float)atan2((x), (y)))
+#endif 
+
+int window;
+float advanceX = 0.0f;
+float advanceZ = 0.0f;
+float advanceY = 0.0f;
+GLuint textureBowtiePasta;
+GLuint textureFettuccinePasta;
+GLuint textureSphagettiPasta;
+GLuint texturePasta;
+GLuint textureCheese;
+GLuint textureSteak;
+GLuint textureCatBiscuit;
+
+int moving = 0;     /* flag that is true while mouse moves */
+int begin_x = 0;        /* x value of mouse movement */
+int begin_y = 0;      /* y value of mouse movement */
+GLfloat angle_y = 0;  /* angle of spin around y axis of scene, in degrees */
+GLfloat angle_x = 0;  /* angle of spin around x axis  of scene, in degrees */
+
+
+					  //int window;
+
+float hour = 0.0;
+float day = 0.0;
+float inc = 1.00;
+
+
+void reportGLError(const char * msg)
+{
+	GLenum errCode;
+	const GLubyte *errString;
+	while ((errCode = glGetError()) != GL_NO_ERROR) {
+		errString = gluErrorString(errCode);
+		fprintf(stderr, "OpenGL Error: %s %s\n", msg, errString);
+	}
+	return;
+}
+
+void resize(int width, int height)
+{
+	// prevent division by zero
+	if (height == 0) { height = 1; }
+
+	glViewport(0, 0, width, height);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0f, (float)width / (float)height, 0.1f, 100.0f);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void specialKeyPressed(int key, int x, int y)
+{
+
+	switch (key) {
+
+	case GLUT_KEY_UP:     /* <cursor up> */
+		advanceX += 0.1f;
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_DOWN:     /* <cursor down> */
+		advanceX -= 0.1f;
+		glutPostRedisplay();
+		break;
+	}
+}
+
+void keyPressed(unsigned char key, int x, int y)
+{
+
+	switch (key) {
+	case 27:
+		glutDestroyWindow(window);
+		exit(0);
+		break;
+	case 'w':     /* <cursor up> */
+		advanceX += 0.1f;
+		glutPostRedisplay();
+		break;
+	case 's':     /* <cursor down> */
+		advanceX -= 0.1f;
+		glutPostRedisplay();
+		break;
+	case 'a':
+		advanceZ += 0.1f;
+		glutPostRedisplay();
+		break;
+	case 'd':
+		advanceZ -= 0.1f;
+		glutPostRedisplay();
+		break;
+	case 'q':
+		advanceY += 0.1f;
+		glutPostRedisplay();
+		break;
+	case 'e':
+		advanceY -= 0.1f;
+		glutPostRedisplay();
+		break;
+	default:
+		break;
+	}
+}
+
+void drawCube(GLuint *tex)
+{
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	glBegin(GL_QUADS);
+	// front face
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 1.0f);
+	// back face
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, -1.0f);
+	// top face
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, -1.0f);
+	// bottom face
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, -1.0f, -1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
+	// right face
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
+	// left face
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, -1.0f);
+
+	glEnd();
+}
+void drawSphere(GLuint *tex, float size) {
+
+	GLUquadric *qobj = gluNewQuadric();
+
+	gluQuadricTexture(qobj, GL_TRUE);
+	gluQuadricNormals(qobj, GLU_SMOOTH);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, *tex);
+
+	gluSphere(qobj, size, 20, 20);
+
+	gluDeleteQuadric(qobj);
+	glDisable(GL_TEXTURE_2D);
+}
+
+void display()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+
+	gluLookAt(-sinf(RAD(angle_y)), sinf(RAD(angle_x)), cosf(RAD(angle_y)),
+		0., 0., 0.,
+		0., 1., 0.);
+
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+
+	glTranslatef(advanceZ, advanceY, advanceX);
+
+	hour += inc;
+	day += inc / 24.0;
+	hour = hour - ((int)(hour / 24)) * 24;
+	day = day - ((int)(day / 365)) * 365;
+
+	glTranslatef(0.0, 0.0, -8.0);
+
+	glRotatef(360 * day / 365.0, 0.0, 1.0, 0.0);
+
+	// ecliptic
+	glRotatef(15.0, 1.0, 0.0, 0.0);
+
+	// sun
+	drawSphere(&textureCatBiscuit, 1);
+
+	// earth
+	// position around the sun
+	glRotatef(360.0*day / 365.0, 0.0, 1.0, 0.0);
+	glTranslatef(4.0, 0.0, 0.0);
+
+	glPushMatrix();
+	// rotate the earth on its axis
+	glRotatef(360.0*hour / 24.0, 0.0, 1.0, 0.0);
+
+	drawSphere(&textureSteak, 0.4f);
+	glPopMatrix();
+
+	// moon
+	glRotatef(360.0 * 4 * day / 365.0, 0.0, 1.0, 0.0);
+	glTranslatef(0.7f, 0.0f, 0.0f);
+	drawSphere(&textureCheese, 0.1f);
+
+	glTranslatef(0.2f, 0, 0);
+	glRotatef(360.0 * 4 * day / 365.0, 1.0, 0.0, 0.0);
+	drawSphere(&textureSphagettiPasta, 0.1f);
+
+	glutSwapBuffers();
+
+}
+
+int initTexture(char* picture, GLuint* tex) {
+	GLsizei w, h;
+	tgaInfo *info = 0;
+	int mode;
+
+
+	info = tgaLoad(picture);
+
+	if (info->status != TGA_OK) {
+		fprintf(stderr, "error loading texture image: %d\n", info->status);
+
+		return 0;
+	}
+
+
+	mode = info->pixelDepth / 8;  // will be 3 for rgb, 4 for rgba
+	glGenTextures(1, tex);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+	// Upload the texture bitmap. 
+	w = info->width;
+	h = info->height;
+
+	reportGLError("before uploading texture");
+	GLint format = (mode == 4) ? GL_RGBA : GL_RGB;
+	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format,
+		GL_UNSIGNED_BYTE, info->imageData);
+	reportGLError("after uploading texture");
+
+	tgaDestroy(info);
+	return 1;
+}
+
+void init(int width, int height)
+{
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_shininess[] = { 5.0 };
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
+
+
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearDepth(1.0);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
+
+
+	resize(width, height);
+
+	initTexture("Textures/steak512.tga", &textureSteak);
+	initTexture("Textures/cheese.tga", &textureCheese);
+	initTexture("Textures/pasta.tga", &texturePasta);
+	initTexture("Textures/fettuccinePasta.tga", &textureFettuccinePasta);
+	initTexture("Textures/sphagettiPasta.tga", &textureSphagettiPasta);
+	initTexture("Textures/bowtiePasta.tga", &textureBowtiePasta);
+	initTexture("Textures/catBiscuit.tga", &textureCatBiscuit);
+
+}
+
+
+void timer(int value)
+{
+	glutPostRedisplay();
+	glutTimerFunc(15, timer, 1);
+}
+
+
+void mouse(int button, int state, int x, int y)
+{
+	switch (button) {
+	case GLUT_LEFT_BUTTON:    /* spin scene around */
+		if (state == GLUT_DOWN) {
+			moving = 1;
+			begin_x = x;
+			begin_y = y;
+
+		}
+		else if (state == GLUT_UP) {
+			moving = 0;
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	glutPostRedisplay();
+}
+
+
+void mouseMotion(int x, int y) {
+
+	if (moving) { /* mouse button is pressed */
+
+				  /* calculate new modelview matrix values */
+		angle_y = angle_y + (x - begin_x);
+		angle_x = angle_x + (y - begin_y);
+		if (angle_x > 360.0) angle_x -= 360.0;
+		else if (angle_x < -360.0) angle_x += 360.0;
+		if (angle_y > 360.0) angle_y -= 360.0;
+		else if (angle_y < -360.0) angle_y += 360.0;
+
+		begin_x = x;
+		begin_y = y;
+		glutPostRedisplay();
+	}
+}
+
+
+int main(int argc, char **argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
+	glutInitWindowSize(640, 480);
+	glutInitWindowPosition(0, 0);
+	window = glutCreateWindow("foo");
+	glutDisplayFunc(&display);
+	glutReshapeFunc(&resize);
+	glutKeyboardFunc(&keyPressed);
+	glutSpecialFunc(&specialKeyPressed);
+	init(640, 480);
+	glutTimerFunc(15, timer, 1);
+	glutMouseFunc(mouse);
+	glutMotionFunc(mouseMotion);
+	glutFullScreen();
+	glutMainLoop();
+	return 0;
+}
