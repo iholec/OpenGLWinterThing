@@ -1,5 +1,17 @@
 #include <stdlib.h> // for exit
 
+#include <stdio.h>
+#include <iostream>
+#include <list>
+#include <math.h>
+#include <time.h> 
+
+#include "ModelLoaderLib/glew.h"
+#include "tga.h"
+#include "Object.h"
+#include "Galaxy.h"
+#include "ModelLoaderLib/mesh.h"
+
 #ifdef __APPLE__
 #include <GLUT/glut.h> 
 #include <OpenGL/gl.h>  
@@ -10,16 +22,6 @@
 #include <GL/glu.h>  
 #endif
 
-
-#include <stdio.h>
-#include <iostream>
-#include <list>
-#include <math.h>
-#include <time.h> 
-
-#include "tga.h"
-#include "Object.h"
-#include "Galaxy.h"
 
 /* some math.h files don't define pi... */
 #ifndef M_PI
@@ -154,43 +156,6 @@ void keyPressed(unsigned char key, int x, int y)
 	}
 }
 
-void drawCube(GLuint *tex)
-{
-	glBindTexture(GL_TEXTURE_2D, *tex);
-	glBegin(GL_QUADS);
-	// front face
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 1.0f);
-	// back face
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, -1.0f);
-	// top face
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f, 1.0f);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, 1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, -1.0f);
-	// bottom face
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, -1.0f, -1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
-	// right face
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
-	// left face
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, -1.0f);
-
-	glEnd();
-}
 void drawSphere(GLuint *tex, float size) {
 
 	GLUquadric *qobj = gluNewQuadric();
@@ -267,6 +232,9 @@ void display()
 			glTranslatef(p.posX, p.posY, p.posZ);
 			glRotatef(360.0*day / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
 			drawSphere(&textures[p.texture], p.size);
+
+			//Mesh* mesh = new Mesh("./Models/Fried_Egg/ShysSpiegeleil2.OBJ");
+			//mesh->Draw();
 
 			glPopMatrix();
 		}
