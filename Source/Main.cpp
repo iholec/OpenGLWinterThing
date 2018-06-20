@@ -19,6 +19,7 @@
 
 #include "tga.h"
 #include "Object.h"
+#include "Galaxy.h"
 
 /* some math.h files don't define pi... */
 #ifndef M_PI
@@ -55,7 +56,8 @@ int begin_y = 0;      /* y value of mouse movement */
 GLfloat angle_y = 0;  /* angle of spin around y axis of scene, in degrees */
 GLfloat angle_x = 0;  /* angle of spin around x axis  of scene, in degrees */
 
-Object planets[50];
+Galaxy galaxies[8];
+int galaxyPos = 0;
 int planetPos = 0;
 
 float hour = 0.0;
@@ -248,21 +250,30 @@ void display()
 	// ecliptic
 	glRotatef(15.0, 1.0, 0.0, 0.0);
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		Object p = planets[i];
-		Object center = planets[p.rotateAround];
 		glPushMatrix();
-		glPushMatrix();
-		glTranslatef(center.posX, center.posY, center.posZ);
-		glRotatef(360.0*day / 365.0, p.rotaX1, p.rotaY1, p.rotaZ1);
-		
-		glTranslatef(p.posX, p.posY, p.posZ);
-		glRotatef(360.0*hour / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
-		drawSphere(&textures[p.texture], p.size);
-		
+		Galaxy g = galaxies[i];
+		glTranslatef(g.centerX, g.centerY, g.centerZ);
+		for (int i = 0; i < 10; i++)
+		{
+			Object p = g.planets[i];
+			Object center = g.planets[p.rotateAround];
+			glPushMatrix();
+			glPushMatrix();
+			glTranslatef(center.posX, center.posY, center.posZ);
+			glRotatef(360.0*day / 365.0, p.rotaX1, p.rotaY1, p.rotaZ1);
+
+			glTranslatef(p.posX, p.posY, p.posZ);
+			glRotatef(360.0*day / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
+			drawSphere(&textures[p.texture], p.size);
+
+			glPopMatrix();
+		}
 		glPopMatrix();
 	}
+
+	
 
 	// sun
 	/*GLfloat sunColor[] = { 0.2,0.2,0 };
@@ -296,21 +307,30 @@ void display()
 
 void initUniverse() {
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		Object planet;
-		planet.texture = rand() % (numberOfTextures);
-		planet.rotateAround = 0;
-		if (i == 0) {
-			planet.rotateAround = 0;
-			planet.posX = 0;
-			planet.posY = 0;
-			planet.posZ = 0;
-		}
-		cout << planet.texture;
+		Galaxy gal;
+		for (int i2 = 0; i2 < 10; i2++)
+		{
 
-		planets[planetPos] = planet;
-		planetPos++;
+			Object planet;
+			planet.texture = rand() % (numberOfTextures);
+			planet.rotateAround = 0;
+			if (i2 == 0) {
+				planet.rotateAround = 0;
+				planet.posX = 0;
+				planet.posY = 0;
+				planet.posZ = 0;
+			}
+			cout << planet.texture;
+
+			gal.planets[planetPos] = planet;
+			planetPos++;
+		}
+
+		galaxies[galaxyPos] = gal;
+		galaxyPos++;
+		planetPos = 0;
 
 	}
 }
