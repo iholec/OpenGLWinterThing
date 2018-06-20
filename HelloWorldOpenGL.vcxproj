@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Galaxy.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModelLoaderLib\glew.c" />
     <ClCompile Include="Source\ModelLoaderLib\mesh.cpp" />
@@ -27,9 +28,11 @@
     <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Galaxy.h" />
     <ClInclude Include="Source\ModelLoaderLib\eglew.h" />
     <ClInclude Include="Source\ModelLoaderLib\glew.h" />
     <ClInclude Include="Source\ModelLoaderLib\glxew.h" />
+    <ClInclude Include="Source\ModelLoaderLib\mesh.h" />
     <ClInclude Include="Source\ModelLoaderLib\obj_loader.h" />
     <ClInclude Include="Source\ModelLoaderLib\wglew.h" />
     <ClInclude Include="Source\Object.h" />

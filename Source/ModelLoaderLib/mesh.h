@@ -58,7 +58,7 @@ private:
 
     void InitMesh(const IndexedModel& model);
 
-	GLuint m_vertexArrayObject;
+	GLuint m_vertexArrayObject = 0;
 	GLuint m_vertexArrayBuffers[NUM_BUFFERS];
 	unsigned int m_numIndices;
 };
