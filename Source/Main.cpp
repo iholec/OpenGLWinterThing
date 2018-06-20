@@ -58,9 +58,8 @@ int begin_y = 0;      /* y value of mouse movement */
 GLfloat angle_y = 0;  /* angle of spin around y axis of scene, in degrees */
 GLfloat angle_x = 0;  /* angle of spin around x axis  of scene, in degrees */
 
-Galaxy galaxies[8];
-int galaxyPos = 0;
-int planetPos = 0;
+Galaxy galaxies[10];
+
 
 float hour = 0.0;
 float day = 0.0;
@@ -208,26 +207,31 @@ void display()
 	hour = hour - ((int)(hour / 24)) * 24;
 	day = day - ((int)(day / 365)) * 365;
 
-	glTranslatef(0.0, 0.0, -8.0);
+	glTranslatef(0.0, 0.0, -50.0);
 
 	glRotatef(360 * day / 365.0, 0.0, 1.0, 0.0);
 
 	// ecliptic
 	glRotatef(15.0, 1.0, 0.0, 0.0);
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		glPushMatrix();
 		Galaxy g = galaxies[i];
 		glTranslatef(g.centerX, g.centerY, g.centerZ);
+		glRotatef(360.0*hour/24, g.rotaX,g.rotaY,g.rotaZ);
+		GLfloat sunLight[] = { 1,1,0 };
+		drawGlowingSphere(&textures[1], 1.2, sunLight);
 		for (int i = 0; i < 10; i++)
 		{
 			Object p = g.planets[i];
 			Object center = g.planets[p.rotateAround];
 			glPushMatrix();
 			glPushMatrix();
+			
 			glTranslatef(center.posX, center.posY, center.posZ);
 			glRotatef(360.0*day / 365.0, p.rotaX1, p.rotaY1, p.rotaZ1);
+			
 
 			glTranslatef(p.posX, p.posY, p.posZ);
 			glRotatef(360.0*day / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
@@ -275,7 +279,7 @@ void display()
 
 void initUniverse() {
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Galaxy gal;
 		for (int i2 = 0; i2 < 10; i2++)
@@ -292,13 +296,10 @@ void initUniverse() {
 			}
 			cout << planet.texture;
 
-			gal.planets[planetPos] = planet;
-			planetPos++;
+			gal.planets[i2] = planet;
 		}
 
-		galaxies[galaxyPos] = gal;
-		galaxyPos++;
-		planetPos = 0;
+		galaxies[i] = gal;
 
 	}
 }

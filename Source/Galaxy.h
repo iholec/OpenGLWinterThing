@@ -17,6 +17,6 @@ public:
 	Galaxy();
 	~Galaxy();
 	float centerX, centerY, centerZ;
-	int size;
+	float rotaX, rotaY, rotaZ;
 	Object planets[10];
 };
