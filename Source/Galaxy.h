@@ -1,6 +1,5 @@
 #pragma once
 #include "Object.h"
-#include "Sun.h"
 #ifdef __APPLE__
 #include <GLUT/glut.h> 
 #include <OpenGL/gl.h>  
@@ -20,5 +19,4 @@ public:
 	float centerX, centerY, centerZ;
 	float rotaX, rotaY, rotaZ;
 	Object planets[10];
-	Sun sun;
 };

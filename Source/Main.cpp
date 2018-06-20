@@ -20,7 +20,6 @@
 #include "tga.h"
 #include "Object.h"
 #include "Galaxy.h"
-#include "Sun.h"
 
 /* some math.h files don't define pi... */
 #ifndef M_PI

@@ -33,6 +33,9 @@
     <ClCompile Include="Source\ModelLoaderLib\glew.c">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Galaxy.cpp">
+      <Filter>Ressourcendateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\tga.h">
@@ -54,6 +57,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModelLoaderLib\wglew.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Galaxy.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

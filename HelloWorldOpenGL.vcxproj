@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Galaxy.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModelLoaderLib\glew.c" />
     <ClCompile Include="Source\ModelLoaderLib\mesh.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Galaxy.h" />
     <ClInclude Include="Source\ModelLoaderLib\eglew.h" />
     <ClInclude Include="Source\ModelLoaderLib\glew.h" />
     <ClInclude Include="Source\ModelLoaderLib\glxew.h" />
@@ -92,10 +94,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Schule\CGE\FoodGalaxy\AdditionalInclude\glm;D:\Schule\CGE\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Schule\CGE\FoodGalaxy\AddidionalLibraries;D:\Programme\GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
