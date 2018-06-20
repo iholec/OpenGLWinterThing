@@ -1,6 +1,4 @@
 #pragma once
-#include "Object.h"
-#include "Sun.h"
 #ifdef __APPLE__
 #include <GLUT/glut.h> 
 #include <OpenGL/gl.h>  
@@ -10,15 +8,15 @@
 #include <GL/gl.h>  
 #include <GL/glu.h>  
 #endif
-
-
-class Galaxy
+class Sun
 {
 public:
-	Galaxy();
-	~Galaxy();
-	float centerX, centerY, centerZ;
-	float rotaX, rotaY, rotaZ;
-	Object planets[10];
-	Sun sun;
+	Sun();
+	~Sun();
+	float rotaX1, rotaY1, rotaZ1;
+	float rotaX2, rotaY2, rotaZ2;
+	float rotaSpeed;
+	float size;
+	int texture;
 };
+
