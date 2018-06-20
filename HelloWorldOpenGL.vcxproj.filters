@@ -24,12 +24,36 @@
     <ClCompile Include="Source\Object.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModelLoaderLib\mesh.cpp">
+      <Filter>Ressourcendateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp">
+      <Filter>Ressourcendateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModelLoaderLib\glew.c">
+      <Filter>Ressourcendateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\tga.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Source\Object.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModelLoaderLib\obj_loader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModelLoaderLib\eglew.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModelLoaderLib\glew.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModelLoaderLib\glxew.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModelLoaderLib\wglew.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,0 +1,53 @@
+﻿  tga.cpp
+  Object.cpp
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\object.cpp(23): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  obj_loader.cpp
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(27): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(84): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(121): warning C4267: "=": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(136): warning C4267: "=": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(164): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(262): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(296): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(329): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(378): warning C4244: "return": Konvertierung von "double" in "float", möglicher Datenverlust
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\obj_loader.cpp(386): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+  mesh.cpp
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\modelloaderlib\mesh.cpp(17): warning C4267: "=": Konvertierung von "size_t" nach "unsigned int", Datenverlust möglich
+  Main.cpp
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\main.cpp(230): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\main.cpp(240): warning C4244: "+=": Konvertierung von "double" in "float", möglicher Datenverlust
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\main.cpp(246): warning C4244: "Argument": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\main.cpp(258): warning C4244: "Argument": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\main.cpp(261): warning C4244: "Argument": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+d:\studium\4.semester\cge\uebungen\foodgalaxy\source\main.cpp(463): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+  Code wird generiert...
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutInitWindowPosition" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutInitWindowSize" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutInitDisplayMode" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutMainLoop" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutDestroyWindow" in Funktion ""void __cdecl keyPressed(unsigned char,int,int)" (?keyPressed@@YAXEHH@Z)".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutFullScreen" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutPostRedisplay" in Funktion ""void __cdecl keyPressed(unsigned char,int,int)" (?keyPressed@@YAXEHH@Z)".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutSwapBuffers" in Funktion ""void __cdecl display(void)" (?display@@YAXXZ)".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutTimerFunc" in Funktion ""void __cdecl timer(int)" (?timer@@YAXH@Z)".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutKeyboardFunc" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutSpecialFunc" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutReshapeFunc" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutDisplayFunc" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutMouseFunc" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp_glutMotionFunc" in Funktion "main".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp___glutInitWithExit" in Funktion "glutInit_ATEXIT_HACK".
+Main.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol "__imp___glutCreateWindowWithExit" in Funktion "glutCreateWindow_ATEXIT_HACK".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewBindBuffer".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewBufferData".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewDeleteBuffers".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewGenBuffers".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewEnableVertexAttribArray".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewVertexAttribPointer".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewDrawElementsBaseVertex".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewBindVertexArray".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewDeleteVertexArrays".
+mesh.obj : error LNK2001: Nicht aufgelöstes externes Symbol "__imp___glewGenVertexArrays".
+D:\Programme\GLUT\freeglut\lib\freeglut.lib : warning LNK4272: Bibliothekcomputertyp "x86" steht in Konflikt mit dem Zielcomputertyp "x64"
+D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\x64\Debug\HelloWorldOpenGL.exe : fatal error LNK1120: 27 nicht aufgelöste Externe

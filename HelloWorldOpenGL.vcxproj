@@ -20,10 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\ModelLoaderLib\glew.c" />
+    <ClCompile Include="Source\ModelLoaderLib\mesh.cpp" />
+    <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ModelLoaderLib\eglew.h" />
+    <ClInclude Include="Source\ModelLoaderLib\glew.h" />
+    <ClInclude Include="Source\ModelLoaderLib\glxew.h" />
+    <ClInclude Include="Source\ModelLoaderLib\obj_loader.h" />
+    <ClInclude Include="Source\ModelLoaderLib\wglew.h" />
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\tga.h" />
   </ItemGroup>
@@ -38,14 +46,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -84,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -95,7 +103,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link />
+    <Link>
+      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AddidionalLibraries\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -104,10 +120,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
