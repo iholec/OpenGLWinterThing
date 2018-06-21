@@ -23,6 +23,10 @@
 #endif
 
 
+#ifndef GALAXY_AMOUNT
+#define GALAXY_AMOUNT 10
+#endif
+
 /* some math.h files don't define pi... */
 #ifndef M_PI
 #define M_PI 3.141592653
@@ -58,7 +62,8 @@ int begin_y = 0;      /* y value of mouse movement */
 GLfloat angle_y = 0;  /* angle of spin around y axis of scene, in degrees */
 GLfloat angle_x = 0;  /* angle of spin around x axis  of scene, in degrees */
 
-Galaxy galaxies[10];
+Galaxy galaxies[GALAXY_AMOUNT];
+
 
 
 float hour = 0.0;
@@ -214,7 +219,7 @@ void display()
 	// ecliptic
 	glRotatef(15.0, 1.0, 0.0, 0.0);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < GALAXY_AMOUNT; i++)
 	{
 		glPushMatrix();
 		Galaxy g = galaxies[i];
@@ -279,10 +284,10 @@ void display()
 
 void initUniverse() {
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < GALAXY_AMOUNT; i++)
 	{
 		Galaxy gal;
-		for (int i2 = 0; i2 < 10; i2++)
+		for (int i2 = 0; i2 < GALAXY_AMOUNT; i2++)
 		{
 
 			Object planet;
