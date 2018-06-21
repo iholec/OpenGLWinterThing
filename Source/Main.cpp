@@ -5,6 +5,7 @@
 #include <list>
 #include <math.h>
 #include <time.h> 
+#include <windows.h>
 
 #include "ModelLoaderLib/glew.h"
 #include "tga.h"
@@ -45,13 +46,8 @@ int window;
 float advanceX = 0.0f;
 float advanceZ = 0.0f;
 float advanceY = 0.0f;
-GLuint textureBowtiePasta;
-GLuint textureFettuccinePasta;
-GLuint textureSphagettiPasta;
-GLuint texturePasta;
-GLuint textureCheese;
-GLuint textureSteak;
-GLuint textureCatBiscuit;
+
+bool discomode = false;
 
 Mesh* SpiegeleiMesh;
 
@@ -149,6 +145,17 @@ void keyPressed(unsigned char key, int x, int y)
 		initUniverse();
 		glutPostRedisplay();
 		break;
+	case 'y':
+		if (discomode) {
+			discomode = false;
+			PlaySound("Silent.wav", NULL, SND_ASYNC | SND_FILENAME);
+		}
+		else {
+			discomode = true;
+			PlaySound("disco.wav", NULL, SND_ASYNC | SND_FILENAME);
+		}
+		glutPostRedisplay();
+		break;
 	default:
 		break;
 	}
@@ -241,8 +248,19 @@ void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 	glBindTexture(GL_TEXTURE_2D, *tex);
 	glMaterialfv(GL_FRONT, GL_EMISSION, glowColor);
 	gluSphere(qobj, size, 20, 20);
-	GLfloat noGlow[] = { 0,0,0 };
-	glMaterialfv(GL_FRONT, GL_EMISSION, noGlow);
+
+	if (discomode) {
+		GLfloat discomode[] = { 0.5 *static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3)))), 0.5 * static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3)))), 0.5*static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3)))) };
+		glMaterialfv(GL_FRONT, GL_EMISSION, discomode);
+	}
+	else {
+		GLfloat softSun[] = { 0.4, 0.4, 0.4 };
+		glMaterialfv(GL_FRONT, GL_EMISSION, softSun);
+	}
+
+	//
+	//disco mode
+
 
 	gluDeleteQuadric(qobj);
 	glDisable(GL_TEXTURE_2D);
@@ -265,7 +283,7 @@ void display()
 
 
 	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 
 
