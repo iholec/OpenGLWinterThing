@@ -1,3 +1,4 @@
+//Copyright https://github.com/BennyQBD/ModernOpenGLTutorial
 #include "mesh.h"
 #include <map>
 #include <algorithm>

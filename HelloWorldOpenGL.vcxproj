@@ -32,6 +32,7 @@
     <ClInclude Include="Source\ModelLoaderLib\eglew.h" />
     <ClInclude Include="Source\ModelLoaderLib\glew.h" />
     <ClInclude Include="Source\ModelLoaderLib\glxew.h" />
+    <ClInclude Include="Source\ModelLoaderLib\mesh.h" />
     <ClInclude Include="Source\ModelLoaderLib\obj_loader.h" />
     <ClInclude Include="Source\ModelLoaderLib\wglew.h" />
     <ClInclude Include="Source\Object.h" />

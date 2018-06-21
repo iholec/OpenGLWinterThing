@@ -62,5 +62,8 @@
     <ClInclude Include="Source\Galaxy.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ModelLoaderLib\mesh.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

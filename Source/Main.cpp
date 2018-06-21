@@ -58,21 +58,21 @@ Mesh* SpiegeleiMesh;
 GLuint textures[100];
 int numberOfTextures = 7;
 
-int moving = 0;     /* flag that is true while mouse moves */
-int begin_x = 0;        /* x value of mouse movement */
-int begin_y = 0;      /* y value of mouse movement */
-GLfloat angle_y = 0;  /* angle of spin around y axis of scene, in degrees */
-GLfloat angle_x = 0;  /* angle of spin around x axis  of scene, in degrees */
+int moving = 0;     //flag that is true while mouse moves 
+int begin_x = 0;        //x value of mouse movement
+int begin_y = 0;      //y value of mouse movement
+GLfloat angle_y = 0;  //angle of spin around y axis of scene, in degrees
+GLfloat angle_x = 0;  //angle of spin around x axis  of scene, in degrees
 
 Galaxy galaxies[GALAXY_AMOUNT];
-
-
 
 float hour = 0.0;
 float day = 0.0;
 float inc = 1.00;
 void initUniverse();
 
+//reports GL Errors
+//Copyright CGE2018
 void reportGLError(const char * msg)
 {
 	GLenum errCode;
@@ -84,6 +84,8 @@ void reportGLError(const char * msg)
 	return;
 }
 
+//resizes everything to match the window size
+//Copyright CGE2018
 void resize(int width, int height)
 {
 	// prevent division by zero
@@ -97,22 +99,8 @@ void resize(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void specialKeyPressed(int key, int x, int y)
-{
-
-	switch (key) {
-
-	case GLUT_KEY_UP:     /* <cursor up> */
-		advanceX += 0.1f;
-		glutPostRedisplay();
-		break;
-	case GLUT_KEY_DOWN:     /* <cursor down> */
-		advanceX -= 0.1f;
-		glutPostRedisplay();
-		break;
-	}
-}
-
+//Enables the user to Move and Interact with the Rotation Speed 
+//as well as create a new Random Galaxy by pressing keys
 void keyPressed(unsigned char key, int x, int y)
 {
 
@@ -166,6 +154,7 @@ void keyPressed(unsigned char key, int x, int y)
 	}
 }
 
+//draws a cube with a different texture on every side. Scaleable.
 void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbottom, GLuint *texright, GLuint *texleft, int Scale)
 {
 	glBindTexture(GL_TEXTURE_2D, *texfront);
@@ -223,6 +212,7 @@ void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbott
 	glEnd();
 }
 
+//draws a classic Sphere
 void drawSphere(GLuint *tex, float size) {
 
 	GLUquadric *qobj = gluNewQuadric();
@@ -238,6 +228,8 @@ void drawSphere(GLuint *tex, float size) {
 	gluDeleteQuadric(qobj);
 	glDisable(GL_TEXTURE_2D);
 }
+
+//draws a sphere that emittes light
 void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 
 	GLUquadric *qobj = gluNewQuadric();
@@ -256,6 +248,7 @@ void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 	glDisable(GL_TEXTURE_2D);
 }
 
+//draws the white part of a fried egg (model)
 void drawSpiegelei(GLuint *tex) {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, *tex);
@@ -263,6 +256,7 @@ void drawSpiegelei(GLuint *tex) {
 	glDisable(GL_TEXTURE_2D);
 }
 
+//draws and animates because it is called every frame
 void display()
 {
 
@@ -326,38 +320,12 @@ void display()
 
 	}
 
-
-
-	// sun
-	/*GLfloat sunColor[] = { 0.2,0.2,0 };
-	drawGlowingSphere(&textureCatBiscuit, 1, sunColor);
-
-	// earth
-	// position around the sun
-	glRotatef(360.0*day / 365.0, 0.0, 1.0, 0.0);
-	glTranslatef(4.0, 0.0, 0.0);
-
-	glPushMatrix();
-	// rotate the earth on its axis
-	glRotatef(360.0*hour / 24.0, 0.0, 1.0, 0.0);
-
-	GLfloat steakColor[] = { 1,0,0 };
-	drawGlowingSphere(&textureSteak, 0.4f,steakColor);
-	glPopMatrix();
-
-	// moon
-	glRotatef(360.0 * 4 * day / 365.0, 0.0, 1.0, 0.0);
-	glTranslatef(0.7f, 0.0f, 0.0f);
-	drawSphere(&textureCheese, 0.1f);
-
-	glTranslatef(0.2f, 0, 0);
-	glRotatef(360.0 * 4 * day / 365.0, 1.0, 0.0, 0.0);
-	drawSphere(&textureSphagettiPasta, 0.1f);*/
-
 	glutSwapBuffers();
 
 }
 
+//initializes a random Universe with a fried egg Sun
+//adds the planets to the galaxies planet array
 void initUniverse() {
 
 	SpiegeleiMesh = new Mesh("./Models/Fried_Egg/ShysSpiegeleil2.OBJ");
@@ -382,6 +350,8 @@ void initUniverse() {
 	}
 }
 
+//loads and initializes a tga texture
+//with help from the tga.h loader
 int initTexture(char* picture, GLuint* tex) {
 	GLsizei w, h;
 	tgaInfo *info = 0;
@@ -422,19 +392,11 @@ int initTexture(char* picture, GLuint* tex) {
 	return 1;
 }
 
+//fills variables and starts everything
+//mostly just texture loading
 void init(int width, int height)
 {
-	/*/
-	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 5.0 };
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
-
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);*/
-
 	glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST);
 
 
@@ -444,16 +406,7 @@ void init(int width, int height)
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
 
-
 	resize(width, height);
-
-	/*initTexture("Textures/steak512.tga", &textureSteak);
-	initTexture("Textures/cheese.tga", &textureCheese);
-	initTexture("Textures/pasta.tga", &texturePasta);
-	initTexture("Textures/fettuccinePasta.tga", &textureFettuccinePasta);
-	initTexture("Textures/sphagettiPasta.tga", &textureSphagettiPasta);
-	initTexture("Textures/bowtiePasta.tga", &textureBowtiePasta);
-	initTexture("Textures/catBiscuit.tga", &textureCatBiscuit);*/
 
 	initTexture("Textures/steak512.tga", &textures[0]);
 	initTexture("Textures/cheese.tga", &textures[1]);
@@ -478,14 +431,16 @@ void init(int width, int height)
 
 }
 
-
+//times
+//Copyright CGE2018
 void timer(int value)
 {
 	glutPostRedisplay();
 	glutTimerFunc(15, timer, 1);
 }
 
-
+//inits mouse movement
+//Copyright CGE2018
 void mouse(int button, int state, int x, int y)
 {
 	switch (button) {
@@ -508,7 +463,8 @@ void mouse(int button, int state, int x, int y)
 	glutPostRedisplay();
 }
 
-
+//calculates mouse movement
+//Copyright CGE2018
 void mouseMotion(int x, int y) {
 
 	if (moving) { /* mouse button is pressed */
@@ -527,7 +483,8 @@ void mouseMotion(int x, int y) {
 	}
 }
 
-
+//classic main
+//Copyright CGE2018
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
@@ -538,14 +495,13 @@ int main(int argc, char **argv)
 	glutDisplayFunc(&display);
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);
-	glutSpecialFunc(&specialKeyPressed);
 	init(640, 480);
 	srand(time(NULL));
 	initUniverse();
 	glutTimerFunc(15, timer, 1);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mouseMotion);
-	//glutFullScreen();
+	glutFullScreen();
 	glutMainLoop();
 	return 0;
 }

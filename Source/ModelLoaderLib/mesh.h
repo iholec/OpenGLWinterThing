@@ -1,3 +1,4 @@
+//Copyright https://github.com/BennyQBD/ModernOpenGLTutorial
 #ifndef MESH_INCLUDED_H
 #define MESH_INCLUDED_H
 

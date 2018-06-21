@@ -14,9 +14,11 @@
 class Galaxy
 {
 public:
+	//Positions are randomized in the Constructor
 	Galaxy();
 	~Galaxy();
 	float centerX, centerY, centerZ;
 	float rotaX, rotaY, rotaZ;
+	//Contains all Planets
 	Object planets[10];
 };

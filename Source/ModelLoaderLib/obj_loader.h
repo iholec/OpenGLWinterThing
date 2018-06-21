@@ -1,3 +1,5 @@
+//Copyright https://github.com/BennyQBD/ModernOpenGLTutorial
+
 #ifndef OBJ_LOADER_H_INCLUDED
 #define OBJ_LOADER_H_INCLUDED
 

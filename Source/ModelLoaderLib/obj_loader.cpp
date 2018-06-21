@@ -1,3 +1,4 @@
+//Copyright https://github.com/BennyQBD/ModernOpenGLTutorial
 #include "obj_loader.h"
 #include <fstream>
 #include <iostream>

@@ -1,3 +1,4 @@
+//Copyright CGE2018
 #pragma once
 #define TGA_ERROR_FILE_OPEN          -5
 #define TGA_ERROR_READING_FILE       -4

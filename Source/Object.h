@@ -11,7 +11,7 @@
 class Object
 {
 public:
-	Object();
+	Object();//Positions, Texture and Rotation are randomized in the constuctor
 	~Object();
 	int rotateAround;
 	float posX, posY, posZ;
