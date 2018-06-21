@@ -361,7 +361,7 @@ void display()
 void initUniverse() {
 
 	SpiegeleiMesh = new Mesh("./Models/Fried_Egg/ShysSpiegeleil2.OBJ");
-
+	inc = 1.0;
 
 	for (int i = 0; i < GALAXY_AMOUNT; i++)
 	{
