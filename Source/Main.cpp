@@ -71,7 +71,7 @@ Galaxy galaxies[GALAXY_AMOUNT];
 float hour = 0.0;
 float day = 0.0;
 float inc = 1.00;
-
+void initUniverse();
 
 void reportGLError(const char * msg)
 {
@@ -146,17 +146,21 @@ void keyPressed(unsigned char key, int x, int y)
 		glutPostRedisplay();
 		break;
 	case 'r':
-		inc += 0.01f;
+		inc += 0.1f;
+		glutPostRedisplay();
+		break;
+	case 't':
+		inc += 5.0f;
 		glutPostRedisplay();
 		break;
 	case 'f':
-		inc -= 0.01f;
+		inc -= 0.1f;
 		glutPostRedisplay();
 		break;
-		/*case 'z':
+	case 'z':
 		initUniverse();
 		glutPostRedisplay();
-		break;*/
+		break;
 	default:
 		break;
 	}
@@ -297,7 +301,7 @@ void display()
 		glPushMatrix();
 		Galaxy g = galaxies[i];
 		glTranslatef(g.centerX, g.centerY, g.centerZ);
-		glRotatef(360.0*hour / 24, g.rotaX, g.rotaY, g.rotaZ);
+		glRotatef(360.0*day / 365.0, g.rotaX, g.rotaY, g.rotaZ);
 		GLfloat sunLight[] = { 1,1,0 };
 		drawGlowingSphere(&textures[15], 0.5, sunLight);
 		drawSpiegelei(&textures[16]);
