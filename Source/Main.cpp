@@ -53,6 +53,8 @@ GLuint textureCheese;
 GLuint textureSteak;
 GLuint textureCatBiscuit;
 
+Mesh* SpiegeleiMesh;
+
 GLuint textures[100];
 int numberOfTextures = 7;
 
@@ -91,7 +93,7 @@ void resize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, (float)width / (float)height, 0.1f, 100.0f);
+	gluPerspective(45.0f, (float)width / (float)height, 0.1f, 1201.0f);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -151,13 +153,70 @@ void keyPressed(unsigned char key, int x, int y)
 		inc -= 0.01f;
 		glutPostRedisplay();
 		break;
-	/*case 'z':
+		/*case 'z':
 		initUniverse();
 		glutPostRedisplay();
 		break;*/
 	default:
 		break;
 	}
+}
+
+void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbottom, GLuint *texright, GLuint *texleft, int Scale)
+{
+	glBindTexture(GL_TEXTURE_2D, *texfront);
+	glBegin(GL_QUADS);
+	// front face
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, *texback);
+	glBegin(GL_QUADS);
+	// back face
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, *textop);
+	glBegin(GL_QUADS);
+	// top face
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, *texbottom);
+	glBegin(GL_QUADS);
+	// bottom face
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, *texright);
+	glBegin(GL_QUADS);
+	// right face
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, *texleft);
+	glBegin(GL_QUADS);
+	// left face
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
+	glEnd();
 }
 
 void drawSphere(GLuint *tex, float size) {
@@ -193,17 +252,30 @@ void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 	glDisable(GL_TEXTURE_2D);
 }
 
+void drawSpiegelei(GLuint *tex) {
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	SpiegeleiMesh->Draw();
+	glDisable(GL_TEXTURE_2D);
+}
+
 void display()
 {
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+
+
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+
+
 
 	gluLookAt(-sinf(RAD(angle_y)), sinf(RAD(angle_x)), cosf(RAD(angle_y)),
 		0., 0., 0.,
 		0., 1., 0.);
 
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+	drawCube(&textures[11], &textures[9], &textures[12], &textures[13], &textures[10], &textures[8], 150);
 
 	glTranslatef(advanceZ, advanceY, advanceX);
 
@@ -219,38 +291,38 @@ void display()
 	// ecliptic
 	glRotatef(15.0, 1.0, 0.0, 0.0);
 
+
 	for (int i = 0; i < GALAXY_AMOUNT; i++)
 	{
 		glPushMatrix();
 		Galaxy g = galaxies[i];
 		glTranslatef(g.centerX, g.centerY, g.centerZ);
-		glRotatef(360.0*hour/24, g.rotaX,g.rotaY,g.rotaZ);
+		glRotatef(360.0*hour / 24, g.rotaX, g.rotaY, g.rotaZ);
 		GLfloat sunLight[] = { 1,1,0 };
-		drawGlowingSphere(&textures[1], 1.2, sunLight);
+		drawGlowingSphere(&textures[15], 0.5, sunLight);
+		drawSpiegelei(&textures[16]);
 		for (int i = 0; i < 10; i++)
 		{
 			Object p = g.planets[i];
 			Object center = g.planets[p.rotateAround];
 			glPushMatrix();
 			glPushMatrix();
-			
+
 			glTranslatef(center.posX, center.posY, center.posZ);
 			glRotatef(360.0*day / 365.0, p.rotaX1, p.rotaY1, p.rotaZ1);
-			
+
 
 			glTranslatef(p.posX, p.posY, p.posZ);
 			glRotatef(360.0*day / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
 			drawSphere(&textures[p.texture], p.size);
 
-			//Mesh* mesh = new Mesh("./Models/Fried_Egg/ShysSpiegeleil2.OBJ");
-			//mesh->Draw();
-
 			glPopMatrix();
 		}
 		glPopMatrix();
+
 	}
 
-	
+
 
 	// sun
 	/*GLfloat sunColor[] = { 0.2,0.2,0 };
@@ -284,6 +356,9 @@ void display()
 
 void initUniverse() {
 
+	SpiegeleiMesh = new Mesh("./Models/Fried_Egg/ShysSpiegeleil2.OBJ");
+
+
 	for (int i = 0; i < GALAXY_AMOUNT; i++)
 	{
 		Galaxy gal;
@@ -293,12 +368,6 @@ void initUniverse() {
 			Object planet;
 			planet.texture = rand() % (numberOfTextures);
 			planet.rotateAround = 0;
-			if (i2 == 0) {
-				planet.rotateAround = 0;
-				planet.posX = 0;
-				planet.posY = 0;
-				planet.posZ = 0;
-			}
 			cout << planet.texture;
 
 			gal.planets[i2] = planet;
@@ -390,6 +459,19 @@ void init(int width, int height)
 	initTexture("Textures/bowtiePasta.tga", &textures[5]);
 	initTexture("Textures/catBiscuit.tga", &textures[6]);
 
+	//skybox
+	initTexture("Textures/skyboxLeft1.tga", &textures[8]);
+	initTexture("Textures/skyboxLeft2.tga", &textures[9]);
+	initTexture("Textures/skyboxRight1.tga", &textures[10]);
+	initTexture("Textures/skyboxRight2.tga", &textures[11]);
+	initTexture("Textures/skyboxTop.tga", &textures[12]);
+	initTexture("Textures/skyboxBottom.tga", &textures[13]);
+
+	//Spiegelei
+	initTexture("Textures/eggYellow.tga", &textures[15]);
+	initTexture("Textures/eggWhite.tga", &textures[16]);
+
+
 }
 
 
@@ -448,7 +530,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
 	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("foo");
+	window = glutCreateWindow("Food Galaxy");
 	glutDisplayFunc(&display);
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);
@@ -459,7 +541,7 @@ int main(int argc, char **argv)
 	glutTimerFunc(15, timer, 1);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mouseMotion);
-	glutFullScreen();
+	//glutFullScreen();
 	glutMainLoop();
 	return 0;
 }
