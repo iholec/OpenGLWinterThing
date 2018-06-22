@@ -1,3 +1,5 @@
+//extern annotation versuchen wegen Linker
+
 #include <stdlib.h> // for exit
 
 #include <stdio.h>
@@ -315,11 +317,10 @@ void display()
 		glPushMatrix();
 		Galaxy g = galaxies[i];
 		glTranslatef(g.centerX, g.centerY, g.centerZ);
-		
 		GLfloat sunLight[] = { 1,1,0 };
 		drawGlowingSphere(&textures[15], 0.5, sunLight);
 		drawSpiegelei(&textures[16]);
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < GALAXY_AMOUNT; i++)
 		{
 			Object p = g.planets[i];
 			Object center = g.planets[p.rotateAround];
@@ -333,7 +334,6 @@ void display()
 			glTranslatef(p.posX, p.posY, p.posZ);
 			glRotatef(360.0*day / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
 			drawSphere(&textures[p.texture], p.size);
-
 			glPopMatrix();
 		}
 		glPopMatrix();
@@ -521,7 +521,7 @@ int main(int argc, char **argv)
 	glutTimerFunc(15, timer, 1);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mouseMotion);
-	glutFullScreen();
+	//glutFullScreen();
 	glutMainLoop();
 	return 0;
 }
