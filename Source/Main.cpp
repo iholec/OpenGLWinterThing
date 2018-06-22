@@ -315,7 +315,7 @@ void display()
 		glPushMatrix();
 		Galaxy g = galaxies[i];
 		glTranslatef(g.centerX, g.centerY, g.centerZ);
-		glRotatef(360.0*day / 365.0, g.rotaX, g.rotaY, g.rotaZ);
+		
 		GLfloat sunLight[] = { 1,1,0 };
 		drawGlowingSphere(&textures[15], 0.5, sunLight);
 		drawSpiegelei(&textures[16]);
@@ -323,7 +323,7 @@ void display()
 		{
 			Object p = g.planets[i];
 			Object center = g.planets[p.rotateAround];
-			glPushMatrix();
+			glRotatef(360.0*day / 365.0, g.rotaX, g.rotaY, g.rotaZ);
 			glPushMatrix();
 
 			glTranslatef(center.posX, center.posY, center.posZ);
