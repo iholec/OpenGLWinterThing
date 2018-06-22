@@ -149,10 +149,12 @@ void keyPressed(unsigned char key, int x, int y)
 		if (discomode) {
 			discomode = false;
 			PlaySound("Silent.wav", NULL, SND_ASYNC | SND_FILENAME);
+			inc = 1.0f;
 		}
 		else {
 			discomode = true;
 			PlaySound("disco.wav", NULL, SND_ASYNC | SND_FILENAME);
+			inc = 200.0f;
 		}
 		glutPostRedisplay();
 		break;
