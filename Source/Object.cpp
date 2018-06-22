@@ -5,9 +5,9 @@
 Object::Object()
 {
 	//Position
-	posX = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3))));
-	posY = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3))));
-	posZ = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3))));
+	posX = -4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (4 - (-4))));
+	posY = -4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (4 - (-4))));
+	posZ = -4 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (4 - (-4))));
 
 	//Rotation 1
 	rotaX1 = 0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1 - 0)));
@@ -20,7 +20,7 @@ Object::Object()
 	rotaZ2 = 0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1 - 0)));
 
 	
-	size = 0.1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1 - 0.1)));
+	size = 0.1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.8 - 0.1)));
 	rotaSpeed = 25 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (100 - 25)));
 }
 
