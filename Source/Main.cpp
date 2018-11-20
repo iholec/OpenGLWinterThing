@@ -1,33 +1,24 @@
 //extern annotation versuchen wegen Linker
 
-#include <stdlib.h> // for exit
 
+#include "ModelLoaderLib/mesh.h"
+#include <stdlib.h> // for exit
 #include <stdio.h>
-#include <iostream>
-#include <list>
 #include <math.h>
 #include <time.h> 
 #include <windows.h>
 
-#include "ModelLoaderLib/glew.h"
 #include "tga.h"
 #include "Object.h"
-#include "Galaxy.h"
-#include "ModelLoaderLib/mesh.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h> 
-#include <OpenGL/gl.h>  
+//#include <OpenGL/gl.h>  
 #include <OpenGL/glu.h>  
 #else
 #include <GL/glut.h> 
-#include <GL/gl.h>  
+//#include <GL/gl.h>  
 #include <GL/glu.h>  
-#endif
-
-
-#ifndef GALAXY_AMOUNT
-#define GALAXY_AMOUNT 10
 #endif
 
 /* some math.h files don't define pi... */
@@ -62,12 +53,9 @@ int begin_y = 0;      //y value of mouse movement
 GLfloat angle_y = 0;  //angle of spin around y axis of scene, in degrees
 GLfloat angle_x = 0;  //angle of spin around x axis  of scene, in degrees
 
-Galaxy galaxies[GALAXY_AMOUNT];
-
 float hour = 0.0;
 float day = 0.0;
 float inc = 1.00;
-void initUniverse();
 
 //reports GL Errors
 //Copyright CGE2018
@@ -97,8 +85,7 @@ void resize(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-//Enables the user to Move and Interact with the Rotation Speed 
-//as well as create a new Random Galaxy by pressing keys
+//Enables the user to Move and Interact with the Rotation Speed
 void keyPressed(unsigned char key, int x, int y)
 {
 
@@ -143,14 +130,10 @@ void keyPressed(unsigned char key, int x, int y)
 		inc -= 0.1f;
 		glutPostRedisplay();
 		break;
-	case 'z':
-		initUniverse();
-		glutPostRedisplay();
-		break;
 	case 'y':
 		if (discomode) {
 			discomode = false;
-			PlaySound("Silent.wav", NULL, SND_ASYNC | SND_FILENAME);
+			PlaySound("ambientMusic.wav", NULL, SND_ASYNC | SND_FILENAME);
 			inc = 1.0f;
 		}
 		else {
@@ -165,10 +148,23 @@ void keyPressed(unsigned char key, int x, int y)
 	}
 }
 
+void setupTexture(GLuint* tex)
+{
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+}
+
+
 //draws a cube with a different texture on every side. Scaleable.
 void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbottom, GLuint *texright, GLuint *texleft, int Scale)
 {
-	glBindTexture(GL_TEXTURE_2D, *texfront);
+	setupTexture(texfront);
 	glBegin(GL_QUADS);
 	// front face
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
@@ -177,7 +173,7 @@ void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbott
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, 1.0f*Scale);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, *texback);
+	setupTexture(texback);
 	glBegin(GL_QUADS);
 	// back face
 	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
@@ -186,7 +182,7 @@ void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbott
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, *textop);
+	setupTexture(textop);
 	glBegin(GL_QUADS);
 	// top face
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
@@ -195,7 +191,7 @@ void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbott
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f*Scale, 1.0f*Scale, -1.0f*Scale);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, *texbottom);
+	setupTexture(texbottom);
 	glBegin(GL_QUADS);
 	// bottom face
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
@@ -204,7 +200,7 @@ void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbott
 	glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, *texright);
+	setupTexture(texright);
 	glBegin(GL_QUADS);
 	// right face
 	glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
@@ -213,7 +209,8 @@ void drawCube(GLuint *texfront, GLuint *texback, GLuint *textop, GLuint *texbott
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f*Scale, -1.0f*Scale, 1.0f*Scale);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, *texleft);
+
+	setupTexture(texleft);
 	glBegin(GL_QUADS);
 	// left face
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f*Scale, -1.0f*Scale, -1.0f*Scale);
@@ -240,7 +237,7 @@ void drawSphere(GLuint *tex, float size) {
 	glDisable(GL_TEXTURE_2D);
 }
 
-//draws a sphere that emittes light
+//draws a sphere that emits light
 void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 
 	GLUquadric *qobj = gluNewQuadric();
@@ -262,10 +259,6 @@ void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 		glMaterialfv(GL_FRONT, GL_EMISSION, softSun);
 	}
 
-	//
-	//disco mode
-
-
 	gluDeleteQuadric(qobj);
 	glDisable(GL_TEXTURE_2D);
 }
@@ -281,7 +274,7 @@ void drawSpiegelei(GLuint *tex) {
 //draws and animates because it is called every frame
 void display()
 {
-
+	//call spawner or object which has avariable that increments each time it is called until certain time then dies for snow
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -295,80 +288,15 @@ void display()
 		0., 0., 0.,
 		0., 1., 0.);
 
+	//skybox
 	drawCube(&textures[11], &textures[9], &textures[12], &textures[13], &textures[10], &textures[8], 150);
 
 	glTranslatef(advanceZ, advanceY, advanceX);
-
-	hour += inc;
-	day += inc / 24.0;
-	hour = hour - ((int)(hour / 24)) * 24;
-	day = day - ((int)(day / 365)) * 365;
-
-	glTranslatef(0.0, 0.0, -50.0);
-
-	glRotatef(360 * day / 365.0, 0.0, 1.0, 0.0);
-
-	// ecliptic
-	glRotatef(15.0, 1.0, 0.0, 0.0);
-
-
-	for (int i = 0; i < GALAXY_AMOUNT; i++)
-	{
-		glPushMatrix();
-		Galaxy g = galaxies[i];
-		glTranslatef(g.centerX, g.centerY, g.centerZ);
-		GLfloat sunLight[] = { 1,1,0 };
-		drawGlowingSphere(&textures[15], 0.5, sunLight);
-		drawSpiegelei(&textures[16]);
-		for (int i = 0; i < GALAXY_AMOUNT; i++)
-		{
-			Object p = g.planets[i];
-			Object center = g.planets[p.rotateAround];
-			glRotatef(360.0*day / 365.0, g.rotaX, g.rotaY, g.rotaZ);
-			glPushMatrix();
-
-			glTranslatef(center.posX, center.posY, center.posZ);
-			glRotatef(360.0*day / 365.0, p.rotaX1, p.rotaY1, p.rotaZ1);
-
-
-			glTranslatef(p.posX, p.posY, p.posZ);
-			glRotatef(360.0*day / 24.0, p.rotaX2, p.rotaY2, p.rotaZ2);
-			drawSphere(&textures[p.texture], p.size);
-			glPopMatrix();
-		}
-		glPopMatrix();
-
-	}
 
 	glutSwapBuffers();
 
 }
 
-//initializes a random Universe with a fried egg Sun
-//adds the planets to the galaxies planet array
-void initUniverse() {
-
-	SpiegeleiMesh = new Mesh("./Models/Fried_Egg/ShysSpiegeleil2.OBJ");
-	inc = 1.0;
-
-	for (int i = 0; i < GALAXY_AMOUNT; i++)
-	{
-		Galaxy gal;
-		for (int i2 = 0; i2 < GALAXY_AMOUNT; i2++)
-		{
-
-			Object planet;
-			planet.texture = rand() % (numberOfTextures);
-			planet.rotateAround = 0;
-			cout << planet.texture;
-
-			gal.planets[i2] = planet;
-		}
-
-		galaxies[i] = gal;
-
-	}
-}
 
 //loads and initializes a tga texture
 //with help from the tga.h loader
@@ -437,18 +365,37 @@ void init(int width, int height)
 	initTexture("Textures/catBiscuit.tga", &textures[6]);
 
 	//skybox
-	initTexture("Textures/skyboxLeft1.tga", &textures[8]);
-	initTexture("Textures/skyboxLeft2.tga", &textures[9]);
-	initTexture("Textures/skyboxRight1.tga", &textures[10]);
-	initTexture("Textures/skyboxRight2.tga", &textures[11]);
-	initTexture("Textures/skyboxTop.tga", &textures[12]);
-	initTexture("Textures/skyboxBottom.tga", &textures[13]);
+	initTexture("Textures/Skybox1.tga", &textures[8]);
+	initTexture("Textures/skybox3.tga", &textures[9]);
+	initTexture("Textures/skybox4.tga", &textures[10]);
+	initTexture("Textures/skybox6.tga", &textures[11]);
+	initTexture("Textures/skybox5.tga", &textures[12]);
+	initTexture("Textures/skybox2.tga", &textures[13]);
 
 	//Spiegelei
 	initTexture("Textures/eggYellow.tga", &textures[15]);
 	initTexture("Textures/eggWhite.tga", &textures[16]);
 
+	//Light
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_shininess[] = { 7.0 };
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
+
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearDepth(1.0);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
+	
+	PlaySound("ambientMusic.wav", NULL, SND_ASYNC | SND_FILENAME);
 }
 
 //times
@@ -511,13 +458,12 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
 	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("Food Galaxy");
+	window = glutCreateWindow("Winter Wonderland");
 	glutDisplayFunc(&display);
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);
 	init(640, 480);
 	srand(time(NULL));
-	initUniverse();
 	glutTimerFunc(15, timer, 1);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mouseMotion);

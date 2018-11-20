@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
+#include <glm.hpp>
 
 Mesh::Mesh(const std::string& fileName)
 {
@@ -13,7 +14,7 @@ Mesh::Mesh(const std::string& fileName)
 
 void Mesh::InitMesh(const IndexedModel& model)
 {
-	if (GLEW_OK == glewInit()) {//some changes where made by me because it did not work.
+	if (GLEW_OK == glewInit()) {//some changes where made by me because it did not work for me.
 		m_numIndices = model.indices.size();
 		m_vertexArrayObject = 0;
 		glGenVertexArrays(1, &m_vertexArrayObject);

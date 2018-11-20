@@ -2,7 +2,10 @@
 #ifndef MESH_INCLUDED_H
 #define MESH_INCLUDED_H
 
-#include "glew.h"
+extern "C" {
+#include <glew.h>
+}
+
 #include <glm.hpp>
 #include <string>
 #include <vector>

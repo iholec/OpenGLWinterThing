@@ -30,10 +30,7 @@
     <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModelLoaderLib\glew.c">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Galaxy.cpp">
+    <ClCompile Include="Particle.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,22 +44,13 @@
     <ClInclude Include="Source\ModelLoaderLib\obj_loader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModelLoaderLib\eglew.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ModelLoaderLib\glew.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ModelLoaderLib\glxew.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModelLoaderLib\wglew.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Galaxy.h">
+    <ClInclude Include="Source\ModelLoaderLib\mesh.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModelLoaderLib\mesh.h">
+    <ClInclude Include="Particle.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

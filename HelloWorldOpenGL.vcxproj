@@ -19,19 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Galaxy.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\ModelLoaderLib\glew.c" />
     <ClCompile Include="Source\ModelLoaderLib\mesh.cpp" />
     <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Galaxy.h" />
-    <ClInclude Include="Source\ModelLoaderLib\eglew.h" />
-    <ClInclude Include="Source\ModelLoaderLib\glew.h" />
-    <ClInclude Include="Source\ModelLoaderLib\glxew.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="Source\ModelLoaderLib\mesh.h" />
     <ClInclude Include="Source\ModelLoaderLib\obj_loader.h" />
     <ClInclude Include="Source\ModelLoaderLib\wglew.h" />
@@ -95,10 +91,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Schule\CGE\FoodGalaxy\AdditionalInclude\glm;D:\Schule\CGE\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\include\GL;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-DGLEW_STATIC %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Schule\CGE\FoodGalaxy\AddidionalLibraries;D:\Programme\GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Schule\CGE\FoodGalaxy\AddidionalLibraries;D:\Programme\GLUT\freeglut\lib;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\lib\Release\Win32;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\bin\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -106,11 +104,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link />
     <Link>
-      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AddidionalLibraries\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -138,6 +136,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\FoodGalaxy\AdditionalInclude\glm;D:\Studium\4.Semester\CGE\FoodGalaxy\AdditionalInclude\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
