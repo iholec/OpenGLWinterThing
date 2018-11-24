@@ -10,6 +10,8 @@
 
 #include "tga.h"
 #include "Object.h"
+#include "../Particle.h"
+#include "../ParticleSystem.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h> 
@@ -35,6 +37,8 @@
 #endif 
 using namespace std;
 
+ParticleSystem* plsdontkillme;
+
 int window;
 float advanceX = 0.0f;
 float advanceZ = 0.0f;
@@ -42,7 +46,8 @@ float advanceY = 0.0f;
 
 bool discomode = false;
 
-Mesh* SpiegeleiMesh;
+//Mesh* Tree;
+Mesh* Terrain;
 
 GLuint textures[100];
 int numberOfTextures = 7;
@@ -118,28 +123,14 @@ void keyPressed(unsigned char key, int x, int y)
 		advanceY -= 0.1f;
 		glutPostRedisplay();
 		break;
-	case 'r':
-		inc += 0.1f;
-		glutPostRedisplay();
-		break;
-	case 't':
-		inc += 5.0f;
-		glutPostRedisplay();
-		break;
-	case 'f':
-		inc -= 0.1f;
-		glutPostRedisplay();
-		break;
 	case 'y':
 		if (discomode) {
 			discomode = false;
 			PlaySound("ambientMusic.wav", NULL, SND_ASYNC | SND_FILENAME);
-			inc = 1.0f;
 		}
 		else {
 			discomode = true;
 			PlaySound("disco.wav", NULL, SND_ASYNC | SND_FILENAME);
-			inc = 200.0f;
 		}
 		glutPostRedisplay();
 		break;
@@ -263,18 +254,18 @@ void drawGlowingSphere(GLuint *tex, float size, GLfloat *glowColor) {
 	glDisable(GL_TEXTURE_2D);
 }
 
-//draws the white part of a fried egg (model)
-void drawSpiegelei(GLuint *tex) {
+//draws a model
+void drawMesh(Mesh* mesh, GLuint *tex) {
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, *tex);
-	SpiegeleiMesh->Draw();
+	setupTexture(tex);
+	mesh->Draw();
 	glDisable(GL_TEXTURE_2D);
 }
 
 //draws and animates because it is called every frame
 void display()
 {
-	//call spawner or object which has avariable that increments each time it is called until certain time then dies for snow
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -282,16 +273,26 @@ void display()
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-
-
 	gluLookAt(-sinf(RAD(angle_y)), sinf(RAD(angle_x)), cosf(RAD(angle_y)),
 		0., 0., 0.,
 		0., 1., 0.);
 
 	//skybox
-	drawCube(&textures[11], &textures[9], &textures[12], &textures[13], &textures[10], &textures[8], 150);
+	drawCube(&textures[11], &textures[9], &textures[12], &textures[13], &textures[10], &textures[8], 300);
 
 	glTranslatef(advanceZ, advanceY, advanceX);
+
+	//oh no
+	glPushMatrix();
+	glTranslatef(-200.0, 300.0, -200.0);
+	plsdontkillme->update();//it did not kill me!!!
+	glPopMatrix();
+
+	//Terrain
+	glPushMatrix();
+	glTranslatef(0, -12, 0);
+	drawMesh(Terrain, &textures[7]);
+	glPopMatrix();
 
 	glutSwapBuffers();
 
@@ -356,13 +357,8 @@ void init(int width, int height)
 
 	resize(width, height);
 
-	initTexture("Textures/steak512.tga", &textures[0]);
-	initTexture("Textures/cheese.tga", &textures[1]);
-	initTexture("Textures/pasta.tga", &textures[2]);
-	initTexture("Textures/fettuccinePasta.tga", &textures[3]);
-	initTexture("Textures/sphagettiPasta.tga", &textures[4]);
-	initTexture("Textures/bowtiePasta.tga", &textures[5]);
-	initTexture("Textures/catBiscuit.tga", &textures[6]);
+	//terrain
+	initTexture("Textures/SnowFloor.tga", &textures[7]);
 
 	//skybox
 	initTexture("Textures/Skybox1.tga", &textures[8]);
@@ -372,13 +368,18 @@ void init(int width, int height)
 	initTexture("Textures/skybox5.tga", &textures[12]);
 	initTexture("Textures/skybox2.tga", &textures[13]);
 
-	//Spiegelei
-	initTexture("Textures/eggYellow.tga", &textures[15]);
-	initTexture("Textures/eggWhite.tga", &textures[16]);
+	//Schnee
+	initTexture("Textures/snow.tga", &textures[16]);
 
-	//Light
+	plsdontkillme = new ParticleSystem(100, 5, 100, 250, 0.3, 1, 500, 100, 0.1, &textures[16]);
+
+	//Tree = new Mesh("./Models/DeadTree/Tree_LOD0.obj");
+	Terrain = new Mesh("./Models/SnowTerrain/SnowTerrain.obj");
+
+
+	//Light 
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 7.0 };
+	GLfloat mat_shininess[] = { 5.0 };
 	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -396,6 +397,9 @@ void init(int width, int height)
 	glShadeModel(GL_SMOOTH);
 	
 	PlaySound("ambientMusic.wav", NULL, SND_ASYNC | SND_FILENAME);
+
+	//snow
+	plsdontkillme->init(true);
 }
 
 //times

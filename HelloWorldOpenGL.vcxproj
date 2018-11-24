@@ -20,19 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModelLoaderLib\mesh.cpp" />
     <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp" />
-    <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\ModelLoaderLib\mesh.h" />
     <ClInclude Include="Source\ModelLoaderLib\obj_loader.h" />
     <ClInclude Include="Source\ModelLoaderLib\wglew.h" />
-    <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\tga.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HelloWorldOpenGL.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

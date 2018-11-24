@@ -21,9 +21,6 @@
     <ClCompile Include="Source\tga.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Object.cpp">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModelLoaderLib\mesh.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
@@ -33,12 +30,12 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Ressourcendateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\tga.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Object.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModelLoaderLib\obj_loader.h">
@@ -53,5 +50,16 @@
     <ClInclude Include="Particle.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HelloWorldOpenGL.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

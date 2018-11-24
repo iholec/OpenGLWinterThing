@@ -1,0 +1,25 @@
+try{
+s_A("r36a9c");var s_x5c=s_O("r36a9c");var s_izc=function(a){return null!=a&&0<a.getBoundingClientRect().width&&0<a.getBoundingClientRect().height?(a=window.getComputedStyle(a,null),"none"!==a.display&&"hidden"!==a.visibility&&"auto"===a.clip):!1},s_lte=function(a){s_U.call(this,a.Wa)};s_f(s_lte,s_U);s_lte.Pa=s_U.Pa;
+s_lte.prototype.$0a=function(){var a=this.La("BKxS1e").el();s_b(a);a=this.NX().documentElement;a=s_Ci(a).find('[role="heading"], h1, h2, h3').filter(s_izc).Ap();if(!s_td(a.el())){if(null==s_Rt(a,"aria-label")&&null==s_Rt(a,"aria-describedby")){var b=a.parent();if(s_izc(b.el())&&"A"==b.el().tagName){b.focus();return}b=a.children().filter(s_izc);if(1==b.size()&&"A"==b.Ap().el().tagName){b.Ap().focus();return}}a.el().tabIndex="-1";a.el().onblur=function(c){c.target.removeAttribute("tabIndex")}}a.focus()}; s_T(s_lte.prototype,"i3viod",function(){return this.$0a});s_V1a(s_x5c,s_lte);
+
+s_ja().$();
+}catch(e){_DumpException(e)}
+try{
+s_A("IkchZc");var s_6pd=s_O("IkchZc");var s_$ze=function(a){s_U.call(this,a.Wa)};s_f(s_$ze,s_U);s_$ze.Pa=s_U.Pa;s_$ze.prototype.navigate=function(a){var b=a.event.target;a=b.getAttribute("target");var c;if(c=b.href){var d=s_7i(b.href);null!=d.wa.match("google")&&"/imgres"==d.getPath()&&(b=s_ea(b),d=new s_ga,s_rg(d,b),c=c.replace(/&vet=[^&]*|$/,"&vet="+s_ia(d)))}else c=null;c&&("_blank"==a?s_Ai(c,void 0,s_Bc("_blank")):s_Ai(c,void 0,s_Bc("_self")))};s_T(s_$ze.prototype,"RySO6d",function(){return this.navigate});s_V1a(s_6pd,s_$ze);
+
+s_ja().$();
+}catch(e){_DumpException(e)}
+try{
+var s_pra=function(a){var b=0,c=!1,d=[],e=function(){b=0;c&&(c=!1,f())},f=function(){b=s_ba.setTimeout(e,100);a.apply(void 0,d)};return function(g){d=arguments;b?c=!0:f()}};s_A("sylb");
+s_ja().$();
+}catch(e){_DumpException(e)}
+try{
+s_A("WVLMce");var s_5pd=s_O("WVLMce");var s_Zze=["birrg","img-brk"],s_C4=function(a){s_U.call(this,a.Wa);this.Ma=s_ija("input","iri",this.Oa().el());this.Na=s_ija("span","iri",this.Oa().el());this.Da=s_m("irl_r");this.Ca=s_m("irl_p");this.Ba=s_m("irl_c");this.Ka=s_m("irl_d");this.Ha=s_m("irl_t");this.Ga=s_m("irl_m");this.wa=s_m("iur");this.Ia=[];this.Fa=this.Aa=0;this.$={}};s_f(s_C4,s_U);s_C4.Pa=s_U.Pa;
+s_C4.prototype.render=function(){s_v(this.Da,!1);s_v(this.Ca,!0);s_v(this.Ba,!0);s_v(this.Ha,!1);s_v(this.Ga,!1);s_Q(this.wa,"ri_iur");var a=s_n("rg_el",this.wa);this.Aa=a.length;for(var b=0;b<this.Aa;b++){var c=a[b],d=s_o("iri",c);d?s_v(d,!0):(d=s_o("bia",c),s__ze(this,c,b,d.id))}a=s_c(s_Zze);for(b=a.next();!b.done;b=a.next())for(b=s_n(b.value,this.wa),c=0;c<b.length;c++)d=b[c],d.style.height&&(s_Le(d,"height",String(d.style.height)),d.style.height="",d.style.height=d.clientHeight+"px")};
+var s__ze=function(a,b,c,d){var e=a.Ma.cloneNode(!0);s_v(e,!0);e.id="irl_bt_"+c;b.appendChild(e);var f=s_s(e,"click",function(g){var h=a.Na.cloneNode(!0);s_v(h,!0);var k=s_o("iri",b);if(k){var l=a.$[k.id];l&&(s_Md(l),s_Ab(a.$,k.id));s_ld(h,k)}else b.appendChild(h);b.getElementsByTagName("img")[0].className="ri_of";a.Ia[c]=!0;a.Fa++;a.done();google.log("rep",d+"&ei="+google.kEI);g.stopPropagation()});a.$[e.id]=f},s_0ze=function(a){s_R(a.wa,"ri_iur");for(var b=s_n("iri",a.wa),c=0;c<b.length;c++)s_v(b[c],
+!1);b=s_c(s_Zze);for(c=b.next();!c.done;c=b.next()){c=s_n(c.value,a.wa);for(var d=0;d<c.length;d++){var e=c[d],f=s_w(e,"height");f&&(e.style.height=f,s_$h(e,"height"))}}};s_C4.prototype.done=function(){s_0ze(this);this.Da.style.display="none";this.Ca.style.display="none";this.Ba.style.display="none";this.Ka.style.display="none";this.Ha.style.display="";this.Aa!=this.Fa&&(this.Ga.style.display="")};
+s_C4.prototype.cancel=function(){s_0ze(this);this.Ca.style.display="none";this.Ba.style.display="none";this.Da.style.display=""};s_C4.prototype.Vc=function(){for(var a in this.$)s_Md(this.$[a]);s_Bpa(this.$);s_Wa(this.Ia);this.Fa=this.Aa=0};s_T(s_C4.prototype,"k4Iseb",function(){return this.Vc});s_T(s_C4.prototype,"IbE0S",function(){return this.cancel});s_T(s_C4.prototype,"iib5kc",function(){return this.done});s_T(s_C4.prototype,"rcuQ6b",function(){return this.render});s_V1a(s_5pd,s_C4);
+
+s_ja().$();
+}catch(e){_DumpException(e)}
+// Google Inc.
