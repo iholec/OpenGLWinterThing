@@ -21,16 +21,10 @@
     <ClCompile Include="Source\tga.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModelLoaderLib\mesh.cpp">
+    <ClCompile Include="Source\Particle.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
+    <ClCompile Include="Source\ParticleSystem.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,22 +32,22 @@
     <ClInclude Include="Source\tga.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModelLoaderLib\obj_loader.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModelLoaderLib\wglew.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModelLoaderLib\mesh.h">
+    <ClInclude Include="Source\ModelLoaderLib\OBJ_Loader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h">
+    <ClInclude Include="Coordinate.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Source\Particle.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
+    <ClInclude Include="Source\ParticleSystem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

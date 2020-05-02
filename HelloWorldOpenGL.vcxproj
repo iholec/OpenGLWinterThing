@@ -19,20 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\ModelLoaderLib\mesh.cpp" />
-    <ClCompile Include="Source\ModelLoaderLib\obj_loader.cpp" />
+    <ClCompile Include="Source\Particle.cpp" />
+    <ClCompile Include="Source\ParticleSystem.cpp" />
     <ClCompile Include="Source\tga.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Source\ModelLoaderLib\mesh.h" />
-    <ClInclude Include="Source\ModelLoaderLib\obj_loader.h" />
+    <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="Source\ModelLoaderLib\OBJ_Loader.h" />
     <ClInclude Include="Source\ModelLoaderLib\wglew.h" />
+    <ClInclude Include="Source\Particle.h" />
+    <ClInclude Include="Source\ParticleSystem.h" />
+    <ClInclude Include="Source\resource.h" />
     <ClInclude Include="Source\tga.h" />
   </ItemGroup>
   <ItemGroup>
@@ -95,11 +93,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\include\GL;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GLUT\freeglut\include;$(SolutionDir)AdditionalLib\glew-2.1.0\include\GL</AdditionalIncludeDirectories>
       <AdditionalOptions>-DGLEW_STATIC %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Schule\CGE\FoodGalaxy\AddidionalLibraries;D:\Programme\GLUT\freeglut\lib;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\lib\Release\Win32;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\bin\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)AdditionalLib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)AdditionalLib\glew-2.1.0\bin\Release\Win32;$(SolutionDir)GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -108,11 +106,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalInclude\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GLUT\freeglut\include;$(SolutionDir)AdditionalLib\glew-2.1.0\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link />
     <Link>
-      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;D:\Studium\5.Semester\CGSE\Uebung\TLOD\AdditionalLib\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)AdditionalLib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)AdditionalLib\glew-2.1.0\bin\Release\Win32;$(SolutionDir)GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -125,12 +123,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\SDL2;D:\Studium\4.Semester\CGE\Uebungen\FoodGalaxy\AdditionalInclude\glm;D:\Programme\GLUT\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GLUT\freeglut\include;$(SolutionDir)AdditionalLib\glew-2.1.0\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Programme\GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)AdditionalLib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)AdditionalLib\glew-2.1.0\bin\Release\Win32;$(SolutionDir)GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,11 +138,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Studium\4.Semester\CGE\FoodGalaxy\AdditionalInclude\glm;D:\Studium\4.Semester\CGE\FoodGalaxy\AdditionalInclude\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GLUT\freeglut\include;$(SolutionDir)AdditionalLib\glew-2.1.0\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)AdditionalLib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)AdditionalLib\glew-2.1.0\bin\Release\Win32;$(SolutionDir)GLUT\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
